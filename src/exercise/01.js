@@ -5,22 +5,16 @@ import * as React from 'react'
 
 function Counter({initialCount = 0, step = 1}) {
   const countReducer = (state, action) => {
-    let newState = state
-
-    if (typeof action === 'function') {
-      newState = action(state)
-    } else {
-      newState = action
+    if (action.type === 'INCREMENT') {
+      return {...state, count: state.count + action.step}
     }
-    return {...state, ...newState}
   }
 
-  const [state, setState] = React.useReducer(countReducer, {
+  const [state, dispatch] = React.useReducer(countReducer, {
     count: initialCount,
   })
   const {count} = state
-  const increment = () =>
-    setState(currentState => ({count: currentState.count + step}))
+  const increment = () => dispatch({type: 'INCREMENT', step})
   return <button onClick={increment}>{count}</button>
 }
 
