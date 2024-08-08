@@ -63,13 +63,11 @@ function PokemonInfo({pokemonName}) {
     return fetchPokemon(pokemonName)
   }, [pokemonName])
 
-  const state = useAsync(asyncCallback, {
+  const {data, status, error, run} = useAsync(asyncCallback, {
     status: pokemonName ? 'pending' : 'idle',
     data: null,
     error: null,
   })
-
-  const {data, status, error} = state
 
   switch (status) {
     case 'idle':
