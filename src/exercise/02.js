@@ -36,7 +36,6 @@ function useAsync(asyncCallback, initialState) {
       return
     }
 
-    // then you can dispatch and handle the promise etc...
     dispatch({type: 'pending'})
     asyncCallback().then(
       data => {
@@ -48,7 +47,12 @@ function useAsync(asyncCallback, initialState) {
     )
   }, [asyncCallback])
 
-  return state
+  return {
+    ...state,
+    run: fn => {
+      fn()
+    },
+  }
 }
 
 function PokemonInfo({pokemonName}) {
