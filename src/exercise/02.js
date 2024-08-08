@@ -59,15 +59,12 @@ function PokemonInfo({pokemonName}) {
     return fetchPokemon(pokemonName)
   }, [pokemonName])
 
-  // 🐨 you'll need to update useAsync to remove the dependencies and list the
-  // async callback as a dependency.
   const state = useAsync(asyncCallback, {
     status: pokemonName ? 'pending' : 'idle',
     data: null,
     error: null,
   })
 
-  // 🐨 this will change from "pokemon" to "data"
   const {data, status, error} = state
 
   switch (status) {
